@@ -1,0 +1,40 @@
+# Dependências locais
+node_modules
+npm-debug.log
+.npm
+yarn.lock
+pnpm-lock.yaml
+
+# Ambiente e secrets (nunca enviar para a imagem)
+.env
+.env.*
+!.env.example
+db.env
+*.pem
+
+# Git e IDE
+.git
+.gitignore
+.cursor
+.vscode
+.idea
+*.swp
+*.swo
+
+# Documentação e testes (opcional - reduz tamanho da imagem)
+*.md
+!README.md
+coverage
+.nyc_output
+__tests__
+*.test.js
+*.spec.js
+
+# Outros
+.DS_Store
+Thumbs.db
+dist
+build
+*.log
+tmp
+temp
