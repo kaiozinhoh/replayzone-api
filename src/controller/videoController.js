@@ -3,6 +3,7 @@ import * as videoModel from '../models/videoModel.js';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+import { ajustarDatas } from '../utils/ajustarDatas.js';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -25,7 +26,7 @@ export const getVideosBySubquadraDateType = async (req, res) => {
       return res.status(404).json({ message: 'Nenhum vídeo encontrado para a data, hora e tipo especificados.' });
     }
 
-    res.status(200).json({ videos });
+    res.status(200).json({ videos: ajustarDatas(videos) });
   } catch (error) {
     console.error('Erro ao consultar os vídeos:', error);
     res.status(500).json({ message: 'Erro ao consultar os vídeos.' });
@@ -77,7 +78,7 @@ export const getVideosByHourInterval = async (req, res) => {
       return res.status(404).json({ message: 'Nenhum vídeo encontrado para este intervalo' });
     }
 
-    res.json({ videos });
+    res.json({ videos: ajustarDatas(videos) });
   } catch (error) {
     console.error('Erro ao consultar o banco de dados:', error);
     res.status(500).json({ error: 'Erro ao consultar o banco de dados' });
@@ -111,7 +112,7 @@ export const getGroupedVideos = async (req, res) => {
     
     res.status(200).json({ 
       success: true,
-      groups: groupedVideos
+      groups: ajustarDatas(groupedVideos)
     });
   } catch (error) {
     console.error('Erro ao consultar os vídeos agrupados:', error);
@@ -151,7 +152,7 @@ export const getGroupedVideosByDate = async (req, res) => {
     
     res.status(200).json({ 
       success: true,
-      groups: groupedVideos
+      groups: ajustarDatas(groupedVideos)
     });
   } catch (error) {
     console.error('Erro ao consultar os vídeos agrupados por data:', error);
