@@ -52,3 +52,14 @@ docker run --rm -p 3000:3000 \
 ```
 
 Healthcheck: `GET http://localhost:3000/health` deve retornar `{"ok":true,"service":"replayzone-api"}`.
+
+---
+
+## Erro "npm error signal SIGTERM"
+
+Se aparecer `npm error command failed` / `npm error signal SIGTERM` ao parar o container:
+
+- **Causa:** O comando de start está como `npm start`. Assim o processo principal é o npm; quando o Docker envia SIGTERM (parar/restart), o npm repassa e exibe esse erro.
+- **Solução:** No EasyPanel, em **Settings** do serviço, em **Start Command** (ou **Command**), deixe **vazio** para usar o do Dockerfile, ou defina explicitamente: `node src/server.js`. Não use `npm start`.
+
+O app já trata SIGTERM/SIGINT e encerra o servidor com graceful shutdown antes de sair.

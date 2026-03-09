@@ -224,10 +224,29 @@ try {
 // INICIA O SERVIDOR
 // ============================================
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('\n=================================');
   console.log(`🚀 Servidor rodando na porta ${port}`);
   console.log(`📅 Iniciado em: ${new Date().toLocaleString()}`);
   console.log('✅ Sistema de inadimplência COM BLOQUEIO está ativo');
   console.log('=================================\n');
 });
+
+// ============================================
+// GRACEFUL SHUTDOWN (Docker/EasyPanel envia SIGTERM ao parar o container)
+// ============================================
+function shutdown(signal) {
+  console.log(`\n📴 ${signal} recebido, encerrando servidor...`);
+  server.close(() => {
+    console.log('✅ Servidor encerrado.');
+    process.exit(0);
+  });
+  // Força saída após 10s se algo travar
+  setTimeout(() => {
+    console.error('⚠️ Timeout no shutdown, forçando saída');
+    process.exit(1);
+  }, 10000);
+}
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
