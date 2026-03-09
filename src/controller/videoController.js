@@ -62,17 +62,18 @@ export const getVideosByHourInterval = async (req, res) => {
   if (!subquadra_id || !data_hora) {
     return res.status(400).json({ error: 'subquadra_id e data_hora são obrigatórios' });
   }
-
+  console.log("TEste",subquadra_id,data_hora)
   const startTime = dayjs(data_hora).tz('America/Sao_Paulo').startOf('hour');
   const endTime = startTime.add(1, 'hour');
-  console.log("TEste",startTime,endTime)
   try {
     const videos = await videoModel.getVideosByHourInterval(
       subquadra_id,
       startTime.format('YYYY-MM-DD HH:mm:ss'),
       endTime.format('YYYY-MM-DD HH:mm:ss')
     );
-     console.log("REQUISIÇÂO",videos)
+     console.log("REQUISIÇÂO",subquadra_id,
+      startTime.format('YYYY-MM-DD HH:mm:ss'),
+      endTime.format('YYYY-MM-DD HH:mm:ss'))
     if (videos.length === 0) {
       return res.status(404).json({ message: 'Nenhum vídeo encontrado para este intervalo' });
     }
