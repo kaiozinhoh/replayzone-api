@@ -63,7 +63,7 @@ export const getVideosByHourInterval = async (req, res) => {
     return res.status(400).json({ error: 'subquadra_id e data_hora são obrigatórios' });
   }
   console.log("TEste",subquadra_id,data_hora)
-  const startTime = dayjs(data_hora).tz('America/Sao_Paulo').startOf('hour');
+  const startTime = dayjs(data_hora).startOf('hour');
   const endTime = startTime.add(1, 'hour');
   try {
     const videos = await videoModel.getVideosByHourInterval(
