@@ -1,8 +1,8 @@
 import mysql from 'mysql2';
 
 const db = mysql.createPool({
-  host: process.env.DB_HOST || 'db.replayzone.com.br',
-  user: process.env.DB_USER || 'replayzone',
+  host: process.env.DB_HOST || '181.189.64.66:3305',
+  user: process.env.DB_USER || 'kaio',
   password: process.env.DB_PASSWORD || 'Kaio@3005',
   database: process.env.DB_NAME || 'replayzone',
   waitForConnections: true,
