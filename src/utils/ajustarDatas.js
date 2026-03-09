@@ -7,7 +7,7 @@ export const ajustarDatas = (dados) => {
   const ajustarData = (valor) => {
     if (valor instanceof Date || isISOString(valor)) {
       // Ajuste de -2 horas nas datas das requisições
-      return dayjs.utc(valor).subtract(2, 'hour').format('YYYY-MM-DD HH:mm:ss');
+      return dayjs.utc(valor).subtract(3, 'hour').format('YYYY-MM-DD HH:mm:ss');
     }
     return valor;
   };
