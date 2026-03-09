@@ -6,8 +6,8 @@ dayjs.extend(utc);
 export const ajustarDatas = (dados) => {
   const ajustarData = (valor) => {
     if (valor instanceof Date || isISOString(valor)) {
-      // Formata sem converter fuso: mantém dia/hora exatamente como está (sem somar/subtrair horas)
-      return dayjs.utc(valor).format('YYYY-MM-DD HH:mm:ss');
+      // Ajuste de -2 horas nas datas das requisições
+      return dayjs.utc(valor).subtract(2, 'hour').format('YYYY-MM-DD HH:mm:ss');
     }
     return valor;
   };
