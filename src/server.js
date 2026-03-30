@@ -206,9 +206,6 @@ console.log('  ✅ adminRoutes registrado');
 app.use('/api', userAuthRoutes);
 console.log('  ✅ userAuthRoutes registrado');
 
-
-
-
 // ============================================
 // SERVIÇO DE ARQUIVOS ESTÁTICOS (path configurável para Docker)
 // ============================================
@@ -219,6 +216,20 @@ try {
 } catch (e) {
   console.warn('  ⚠️ Pasta de vídeos não encontrada, rota /videos/logos desabilitada');
 }
+
+// ============================================
+// PÁGINA DE DOCUMENTAÇÃO
+// ============================================
+app.use(express.static('src/public'));
+
+// Rota principal - redireciona para a documentação
+app.get('/', (req, res) => {
+  res.sendFile('docs.html', { root: 'src/public' });
+});
+
+app.get('/docs', (req, res) => {
+  res.sendFile('docs.html', { root: 'src/public' });
+});
 
 // ============================================
 // INICIA O SERVIDOR
