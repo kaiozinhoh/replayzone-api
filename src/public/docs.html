@@ -141,6 +141,24 @@
             font-size: 0.95rem;
         }
 
+        .endpoint-params {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            font-size: 0.85rem;
+        }
+
+        .endpoint-params code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+            font-size: 0.9rem;
+        }
+
         .auth-notice {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -299,16 +317,25 @@
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/adminlogin</span>
                         <div class="endpoint-description">Login de administrador</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"email": "string", "senha": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/admin-forgot-password</span>
                         <div class="endpoint-description">Recuperação de senha de admin</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"email": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/adminregister</span>
                         <div class="endpoint-description">Criar novo administrador</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "senha": "string", "cargo": "string"}</code>
+                        </div>
                     </div>
                 </div>
 
@@ -328,21 +355,25 @@
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/admins/:id</span>
                         <div class="endpoint-description">Atualizar dados completos do administrador</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "cargo": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method patch">PATCH</span>
                         <span class="endpoint-url">/api/admins/:id/cargo</span>
                         <div class="endpoint-description">Atualizar apenas o cargo do administrador</div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method delete">DELETE</span>
-                        <span class="endpoint-url">/api/admins/:id</span>
-                        <div class="endpoint-description">Excluir administrador</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"cargo": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/admins/:id/password</span>
                         <div class="endpoint-description">Atualizar senha do administrador</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"password": "string"}</code>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -355,21 +386,33 @@
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/login</span>
                         <div class="endpoint-description">Login de usuário comum</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"email": "string", "senha": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/register</span>
                         <div class="endpoint-description">Criar novo usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "senha": "string", "telefone": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/phone-login</span>
                         <div class="endpoint-description">Iniciar login com telefone</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"telefone": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/verify-code</span>
                         <div class="endpoint-description">Verificar código enviado por SMS</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"telefone": "string", "codigo": "string"}</code>
+                        </div>
                     </div>
                 </div>
 
@@ -384,16 +427,25 @@
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/changeuser/:id</span>
                         <div class="endpoint-description">Atualizar dados do usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "telefone": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/changepassword/:id</span>
                         <div class="endpoint-description">Alterar senha do usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"password": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/changepasswordemail/:email</span>
                         <div class="endpoint-description">Alterar senha por e-mail</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"password": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method delete">DELETE</span>
@@ -431,11 +483,17 @@
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/quadras</span>
                         <div class="endpoint-description">Criar nova quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "descricao": "string", "endereco": "string", "usuario_id": "number"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/quadras/:id</span>
                         <div class="endpoint-description">Atualizar quadra existente</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "descricao": "string", "endereco": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method delete">DELETE</span>
@@ -450,40 +508,79 @@
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/vincular-usuario</span>
                         <div class="endpoint-description">Vincular usuário à quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"usuario_id": "number", "quadra_id": "number"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/quadras/:quadra_id/restart-hls</span>
                         <div class="endpoint-description">Reiniciar todos os streams HLS de uma quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>quadra_id</code> (path) - ID da quadra
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/subquadras/:sub_quadra_id/restart-hls</span>
                         <div class="endpoint-description">Reiniciar stream de uma subquadra específica</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>sub_quadra_id</code> (path) - ID da subquadra
+                        </div>
                     </div>
                 </div>
 
                 <h3><span class="icon">⏰</span> Horários e Patrocinadores</h3>
                 <div class="endpoint-list">
                     <div class="endpoint">
-                        <span class="method get">GET</span>
-                        <span class="endpoint-url">/api/horario-funcionamento/:quadra_id</span>
-                        <div class="endpoint-description">Obter horário de funcionamento da quadra</div>
-                    </div>
-                    <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/horario-funcionamento/:quadra_id</span>
                         <div class="endpoint-description">Atualizar horário de funcionamento</div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method get">GET</span>
-                        <span class="endpoint-url">/api/sponsors/:quadra_id</span>
-                        <div class="endpoint-description">Obter patrocinadores da quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"dias_semana": "array", "horario_abertura": "string", "horario_fechamento": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/sponsors/:quadra_id</span>
                         <div class="endpoint-description">Atualizar patrocinadores</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"sponsors": "array"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/sponsors/:quadra_id</span>
+                        <div class="endpoint-description">Obter patrocinadores da quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>quadra_id</code> (path) - ID da quadra
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/cleanup-unused-logos</span>
+                        <div class="endpoint-description">Limpar logos não utilizados</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/generate-test-video/:quadra_id</span>
+                        <div class="endpoint-description">Gerar vídeo de teste para a quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>quadra_id</code> (path) - ID da quadra
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/quadras/generate-slugs</span>
+                        <div class="endpoint-description">Gerar slugs para quadras existentes (uso único)</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/upload-sponsor-logo</span>
+                        <div class="endpoint-description">Upload de logo de patrocinador</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>FormData</code> com arquivo <code>logo</code>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -520,100 +617,175 @@
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/subquadras</span>
                         <div class="endpoint-description">Criar nova subquadra</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "quadra_id": "number", "descricao": "string"}</code>
+                        </div>
                     </div>
-                    <div class="endpoint">
-                        <span class="method put">PUT</span>
-                        <span class="endpoint-url">/api/subquadras/:id</span>
-                        <div class="endpoint-description">Atualizar subquadra existente</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section" id="reservas">
-                <h2>📅 Reservas</h2>
-                <h3><span class="icon">🔍</span> Consulta de Reservas</h3>
-                <div class="endpoint-list">
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/horarios-livres</span>
                         <div class="endpoint-description">Buscar horários livres das subquadras em um dia</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code>, <code>data</code>, <code>subquadra_id</code> (opcional)
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/horario-funcionamento</span>
+                        <div class="endpoint-description">Obter horário de funcionamento para reserva</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/reservasportelefone</span>
                         <div class="endpoint-description">Buscar reservas por telefone</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>telefone</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/reservasporquadra</span>
                         <div class="endpoint-description">Buscar reservas por quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/reservasportoken</span>
                         <div class="endpoint-description">Buscar reserva por token</div>
-                    </div>
-                </div>
-
-                <h3><span class="icon">⚙️</span> Gestão de Reservas</h3>
-                <div class="endpoint-list">
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/reservas</span>
-                        <div class="endpoint-description">Criar nova reserva</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>token</code>
+                        </div>
                     </div>
                     <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/reserva-manual</span>
-                        <div class="endpoint-description">Criar reserva manual (admin)</div>
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/reservas-por-data</span>
+                        <div class="endpoint-description">Buscar reservas por quadra e data</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code>, <code>data</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/cancelarreserva</span>
                         <div class="endpoint-description">Cancelar reserva</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>id</code> da reserva
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/cancelar-reserva-especifica</span>
+                        <div class="endpoint-description">Cancelar reserva específica</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>id</code> da reserva
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/recusarreserva</span>
+                        <div class="endpoint-description">Recusar reserva</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>id</code> da reserva
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/reservas-pendentes</span>
+                        <div class="endpoint-description">Buscar reservas pendentes a partir de uma data</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>data_inicio</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/reservas-fixas</span>
+                        <div class="endpoint-description">Listar reservas fixas</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code> (opcional)
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="endpoint-url">/api/reservas-fixas</span>
+                        <div class="endpoint-description">Excluir reserva fixa</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>id</code> da reserva fixa
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/relatorios</span>
+                        <div class="endpoint-description">Gerar relatórios de reservas</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code>, <code>data_inicio</code>, <code>data_fim</code>, <code>tipo</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/estatisticas</span>
+                        <div class="endpoint-description">Obter estatísticas das reservas</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>quadra_id</code>, <code>periodo</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/reservas</span>
+                        <div class="endpoint-description">Criar nova reserva</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"subquadra_id": "number", "data": "string", "hora_inicio": "string", "hora_fim": "string", "telefone": "string", "nome": "string"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/reserva-manual</span>
+                        <div class="endpoint-description">Criar reserva manual (admin)</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"subquadra_id": "number", "data": "string", "hora_inicio": "string", "hora_fim": "string", "usuario_id": "number", "status": "string"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/enviarconfirmacao</span>
+                        <div class="endpoint-description">Enviar confirmação por WhatsApp</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"id": "number"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/reservas-fixas</span>
+                        <div class="endpoint-description">Criar reserva fixa</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"subquadra_id": "number", "dia_semana": "number", "hora_inicio": "string", "hora_fim": "string", "usuario_id": "number"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/gerar-reservas-fixas</span>
+                        <div class="endpoint-description">Gerar reservas a partir das fixas</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"data_inicio": "string", "data_fim": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/confirmarreserva</span>
                         <div class="endpoint-description">Confirmar reserva</div>
+                        <div class="endpoint-params">
+                            <strong>Query:</strong> <code>id</code> da reserva
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="section" id="videos">
-                <h2>🎥 Vídeos</h2>
-                <div class="endpoint-list">
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/subquadravideos</span>
-                        <div class="endpoint-description">Buscar vídeos por subquadra, data e tipo</div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method get">GET</span>
-                        <span class="endpoint-url">/api/videoid/:id</span>
-                        <div class="endpoint-description">Buscar vídeo específico por ID</div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/videos-hora</span>
-                        <div class="endpoint-description">Buscar vídeos por intervalo de 1 hora</div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/videos-agrupados</span>
-                        <div class="endpoint-description">Obter vídeos agrupados por critérios</div>
-                    </div>
-                </div>
             </div>
 
             <div class="section" id="clientes">
                 <h2>👥 Clientes</h2>
                 <div class="endpoint-list">
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/clientescriar</span>
-                        <div class="endpoint-description">Criar novo cliente</div>
-                    </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/clientes</span>
@@ -623,6 +795,17 @@
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/clientesbyid/:id</span>
                         <div class="endpoint-description">Obter cliente por ID</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do cliente
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/clientesbywidepayid/:id</span>
+                        <div class="endpoint-description">Obter cliente por ID do WidePay</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do WidePay
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
@@ -630,9 +813,65 @@
                         <div class="endpoint-description">Listar clientes inadimplentes</div>
                     </div>
                     <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/clientes-status-bloqueio</span>
+                        <div class="endpoint-description">Obter clientes com status de bloqueio (para N8N)</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/clientes-status-bloqueio/:id</span>
+                        <div class="endpoint-description">Obter status de bloqueio de cliente específico</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do cliente
+                        </div>
+                    </div>
+                    <div class="endpoint">
                         <span class="method put">PUT</span>
-                        <span class="endpoint-url">/api/clientespago/:id</span>
-                        <div class="endpoint-description">Marcar cliente como pago/desbloqueado</div>
+                        <span class="endpoint-url">/api/clientesalterar/:id</span>
+                        <div class="endpoint-description">Atualizar dados do cliente</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "telefone": "string", "endereco": "string"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/clientescriar</span>
+                        <div class="endpoint-description">Criar novo cliente</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "telefone": "string", "endereco": "string", "quadra_id": "number"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="endpoint-url">/api/clientesdeletar/:id</span>
+                        <div class="endpoint-description">Excluir cliente</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do cliente
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/clientespendente/:id</span>
+                        <div class="endpoint-description">Marcar cliente como pendente</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do cliente
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/clientesatrasado/:id</span>
+                        <div class="endpoint-description">Marcar cliente como atrasado</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do cliente
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/webhook-status-bloqueio</span>
+                        <div class="endpoint-description">Webhook para atualizar status de bloqueio (N8N)</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"cliente_id": "number", "status_bloqueio": "string", "motivo": "string"}</code>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -651,19 +890,84 @@
                         <div class="endpoint-description">Listar cobranças pendentes</div>
                     </div>
                     <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/cobrancas/cliente/:id</span>
+                        <div class="endpoint-description">Listar cobranças de um cliente</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do cliente
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/cobrancas/:id</span>
+                        <div class="endpoint-description">Obter cobrança específica</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID da cobrança
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/reservas-fixas</span>
+                        <div class="endpoint-description">Criar reserva fixa</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"subquadra_id": "number", "dia_semana": "number", "hora_inicio": "string", "hora_fim": "string", "usuario_id": "number"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/gerar-reservas-fixas</span>
+                        <div class="endpoint-description">Gerar reservas a partir das fixas</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"data_inicio": "string", "data_fim": "string"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/cobrancas</span>
                         <div class="endpoint-description">Criar nova cobrança</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"cliente_id": "number", "valor": "number", "data_vencimento": "string", "descricao": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/cobrancas/gerar-mensais</span>
                         <div class="endpoint-description">Gerar cobranças mensais automáticas</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"mes": "number", "ano": "number"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/cobrancas/:id</span>
+                        <div class="endpoint-description">Atualizar cobrança</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"valor": "number", "data_vencimento": "string", "descricao": "string"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="endpoint-url">/api/cobrancas/:id</span>
+                        <div class="endpoint-description">Excluir cobrança</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID da cobrança
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/cobrancas/:id/baixar</span>
                         <div class="endpoint-description">Dar baixa em cobrança (marcar como paga)</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"data_pagamento": "string", "forma_pagamento": "string"}</code>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/cobrancas/:id/enviar-whatsapp</span>
+                        <div class="endpoint-description">Enviar cobrança por WhatsApp</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID da cobrança
+                        </div>
                     </div>
                 </div>
             </div>
@@ -675,21 +979,33 @@
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/usuarios</span>
                         <div class="endpoint-description">Criar novo usuário (gerente)</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "senha": "string", "quadra_id": "number", "cargo": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/usuarios/quadra/:quadra_id</span>
                         <div class="endpoint-description">Buscar usuários por quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>quadra_id</code> (path) - ID da quadra
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/usuarios/:id</span>
                         <div class="endpoint-description">Atualizar usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "cargo": "string"}</code>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method delete">DELETE</span>
                         <span class="endpoint-url">/api/usuarios/:id</span>
                         <div class="endpoint-description">Excluir usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do usuário
+                        </div>
                     </div>
                 </div>
             </div>
