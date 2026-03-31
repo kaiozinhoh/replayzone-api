@@ -159,6 +159,40 @@
             font-size: 0.9rem;
         }
 
+        .endpoint-errors {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(220, 53, 69, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid #dc3545;
+            font-size: 0.85rem;
+        }
+
+        .endpoint-errors h4 {
+            color: #dc3545;
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .error-item {
+            margin: 5px 0;
+            padding: 5px 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            border-left: 2px solid #dc3545;
+        }
+
+        .error-code {
+            font-weight: bold;
+            color: #dc3545;
+            font-family: 'Courier New', monospace;
+        }
+
+        .error-message {
+            color: #666;
+            font-style: italic;
+        }
+
         .auth-notice {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -243,29 +277,35 @@
             <h1>🏟️ ReplayZone API</h1>
             <div class="subtitle">Documentação Completa da API de Gestão de Quadras Esportivas</div>
             <div class="api-info">
-                <div class="info-item">📡 RESTful API</div>
-                <div class="info-item">🔐 API Key Authentication</div>
-                <div class="info-item">📊 MySQL Database</div>
-                <div class="info-item">🚀 Node.js + Express</div>
+                <div class="info-item">
+                    <span class="icon">�</span>
+                    <div>
+                        <strong>Base URL:</strong>
+                        <code>http://localhost:3000/api</code>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">🔑</span>
+                    <div>
+                        <strong>Autenticação:</strong>
+                        <code>X-API-KEY</code> header
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">�</span>
+                    <div>
+                        <strong>Formato:</strong>
+                        <code>JSON</code>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <div class="main-content">
-            <div class="section">
-                <h2>📖 Sumário</h2>
-                <div class="toc">
-                    <ul>
-                        <li><a href="#autenticacao">🔐 Autenticação</a></li>
-                        <li><a href="#rotas-publicas">🌐 Rotas Públicas</a></li>
-                        <li><a href="#administracao">👥 Administração</a></li>
-                        <li><a href="#usuarios">👤 Usuários</a></li>
-                        <li><a href="#quadras">🏟️ Quadras</a></li>
-                        <li><a href="#subquadras">🎯 Subquadras</a></li>
-                        <li><a href="#reservas">📅 Reservas</a></li>
-                        <li><a href="#videos">🎥 Vídeos</a></li>
-                        <li><a href="#clientes">👥 Clientes</a></li>
-                        <li><a href="#cobrancas">💰 Cobranças</a></li>
-                        <li><a href="#gerentes">🏢 Gerentes</a></li>
+        <div class="auth-notice">
+            <h3>� <strong>Autenticação Obrigatória</strong></h3>
+            <p>Todos os endpoints com prefixo <code>/api</code> exigem um <strong>API Key</strong> válido no header <code>X-API-KEY</code>.</p>
+            <p>Configure a variável de ambiente <code>API_KEY</code> no servidor para habilitar o acesso.</p>
+        </div>
                     </ul>
                 </div>
             </div>
@@ -320,13 +360,37 @@
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"email": "string", "senha": "string"}</code>
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">E-mail e senha são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Admin não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">401</span> - <span class="error-message">Senha incorreta</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno no servidor</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/admin-forgot-password</span>
                         <div class="endpoint-description">Recuperação de senha de admin</div>
                         <div class="endpoint-params">
-                            <strong>Body:</strong> <code>{"email": "string"}</code>
+                            <strong>Body:</strong> <code>{"email": "string", "novapassword": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Admin não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao atualizar a password</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
@@ -335,6 +399,27 @@
                         <div class="endpoint-description">Criar novo administrador</div>
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"nome": "string", "email": "string", "senha": "string", "cargo": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Senha inválida ou não fornecida</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Todos os campos são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">A senha deve ter pelo menos 8 caracteres</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">409</span> - <span class="error-message">Este email já está cadastrado no sistema</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao processar senha</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno no servidor</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -345,11 +430,29 @@
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/admins</span>
                         <div class="endpoint-description">Listar todos os administradores</div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao buscar usuários</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/admins/:id</span>
                         <div class="endpoint-description">Obter administrador específico</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do admin
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao buscar usuário</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
@@ -357,6 +460,21 @@
                         <div class="endpoint-description">Atualizar dados completos do administrador</div>
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"nome": "string", "email": "string", "cargo": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">409</span> - <span class="error-message">Este email já está cadastrado por outro usuário</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nenhuma alteração realizada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao atualizar usuário</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
@@ -366,6 +484,41 @@
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"cargo": "string"}</code>
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Cargo inválido. Use 1 (Admin), 2 (Gestor) ou 3 (Pendente)</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nenhuma alteração realizada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao atualizar cargo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="endpoint-url">/api/admins/:id</span>
+                        <div class="endpoint-description">Excluir administrador</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do admin
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nenhum usuário excluído</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao excluir usuário</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
@@ -373,6 +526,18 @@
                         <div class="endpoint-description">Atualizar senha do administrador</div>
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"password": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nenhuma alteração realizada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao atualizar senha</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -385,9 +550,24 @@
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/login</span>
-                        <div class="endpoint-description">Login de usuário comum</div>
+                        <div class="endpoint-description">Login de usuário</div>
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"email": "string", "senha": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">E-mail e senha são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Email não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">401</span> - <span class="error-message">Senha incorreta</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao buscar o usuário</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
@@ -397,22 +577,122 @@
                         <div class="endpoint-params">
                             <strong>Body:</strong> <code>{"nome": "string", "email": "string", "senha": "string", "telefone": "string"}</code>
                         </div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/phone-login</span>
-                        <div class="endpoint-description">Iniciar login com telefone</div>
-                        <div class="endpoint-params">
-                            <strong>Body:</strong> <code>{"telefone": "string"}</code>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nome, e-mail, senha e telefone são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao criar usuário</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
-                        <span class="method post">POST</span>
-                        <span class="endpoint-url">/api/verify-code</span>
-                        <div class="endpoint-description">Verificar código enviado por SMS</div>
+                        <span class="method delete">DELETE</span>
+                        <span class="endpoint-url">/api/usuarios/:id</span>
+                        <div class="endpoint-description">Excluir usuário</div>
                         <div class="endpoint-params">
-                            <strong>Body:</strong> <code>{"telefone": "string", "codigo": "string"}</code>
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do usuário
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID do usuário é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao excluir usuário</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/usuarios/:id</span>
+                        <div class="endpoint-description">Obter usuário por ID</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do usuário
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID do usuário é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao buscar usuário</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/usuarios/:id</span>
+                        <div class="endpoint-description">Atualizar usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"nome": "string", "email": "string", "senha": "string", "telefone": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID do usuário e ao menos um campo para atualização são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao atualizar usuário</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/usuarios/:id/senha</span>
+                        <div class="endpoint-description">Alterar senha do usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"senhaAntiga": "string", "novaSenha": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID, senha antiga e nova senha são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">401</span> - <span class="error-message">Senha antiga incorreta</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao alterar a senha</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/usuarios/email/:email/senha</span>
+                        <div class="endpoint-description">Alterar senha por email</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>email</code> (path) - Email do usuário
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Email e nova senha são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Usuário não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao alterar a senha</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-url">/api/changepasswordemail/:email</span>
                     </div>
                 </div>
 
@@ -463,42 +743,166 @@
                         <span class="method get">GET</span>
                         <span class="endpoint-url">/api/quadras</span>
                         <div class="endpoint-description">Listar todas as quadras</div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Nenhuma quadra encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao buscar quadras</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
-                        <span class="endpoint-url">/api/quadrabyid/:id</span>
+                        <span class="endpoint-url">/api/quadras/:id</span>
                         <div class="endpoint-description">Obter quadra por ID</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID da quadra
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Cliente não encontrado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao buscar quadra</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
-                        <span class="endpoint-url">/api/quadras/slug/:slug</span>
-                        <div class="endpoint-description">Obter quadra por slug (URL amigável)</div>
-                    </div>
-                    <div class="endpoint">
-                        <span class="method get">GET</span>
-                        <span class="endpoint-url">/api/quadrasuser/:usuario_id</span>
-                        <div class="endpoint-description">Obter quadras de um usuário específico</div>
+                        <span class="endpoint-url">/api/quadras/usuario/:usuario_id</span>
+                        <div class="endpoint-description">Listar quadras de um usuário</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>usuario_id</code> (path) - ID do usuário
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID do usuário é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Este usuário não tem quadras associadas</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao consultar as quadras</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
                         <span class="endpoint-url">/api/quadras</span>
                         <div class="endpoint-description">Criar nova quadra</div>
                         <div class="endpoint-params">
-                            <strong>Body:</strong> <code>{"nome": "string", "descricao": "string", "endereco": "string", "usuario_id": "number"}</code>
+                            <strong>Body:</strong> <code>{"nome": "string", "endereco": "string", "cidade": "string", "estado": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nome, endereço, cidade e estado são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao criar quadra</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
                         <span class="method put">PUT</span>
                         <span class="endpoint-url">/api/quadras/:id</span>
-                        <div class="endpoint-description">Atualizar quadra existente</div>
+                        <div class="endpoint-description">Atualizar quadra</div>
                         <div class="endpoint-params">
-                            <strong>Body:</strong> <code>{"nome": "string", "descricao": "string", "endereco": "string"}</code>
+                            <strong>Body:</strong> <code>{"nome": "string", "endereco": "string", "cidade": "string", "estado": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID da quadra é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Nome, endereço, cidade e estado são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Quadra não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Nenhuma alteração foi realizada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao atualizar quadra</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/vincular-usuario</span>
+                        <div class="endpoint-description">Vincular usuário a quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Body:</strong> <code>{"usuarioId": "number", "codigoQuadra": "string"}</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Usuário e código da quadra são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Quadra não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Usuário já está vinculado a esta quadra</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao vincular o usuário à quadra</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
                         <span class="method delete">DELETE</span>
-                        <span class="endpoint-url">/api/deletequadra/:id</span>
-                        <div class="endpoint-description">Desvincular/excluir quadra</div>
+                        <span class="endpoint-url">/api/desvincular-usuario/:id</span>
+                        <div class="endpoint-description">Desvincular usuário da quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>id</code> (path) - ID do vínculo
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Selecione sua quadra</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Quadra não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao excluir quadra</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-url">/api/quadras/slug/:slug</span>
+                        <div class="endpoint-description">Buscar quadra por slug</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>slug</code> (path) - Slug da quadra
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Slug da quadra é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Quadra não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao buscar quadra</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-url">/api/quadras/:quadra_id/restart-hls</span>
+                        <div class="endpoint-description">Reiniciar todos os streams HLS de uma quadra</div>
+                        <div class="endpoint-params">
+                            <strong>Parâmetros:</strong> <code>quadra_id</code> (path) - ID da quadra
+                        </div>
                     </div>
                 </div>
 
@@ -519,6 +923,18 @@
                         <div class="endpoint-params">
                             <strong>Parâmetros:</strong> <code>quadra_id</code> (path) - ID da quadra
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID da quadra é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Nenhuma subquadra ativa com cameraId encontrada para esta quadra</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao processar reinicialização dos streams</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method post">POST</span>
@@ -526,6 +942,21 @@
                         <div class="endpoint-description">Reiniciar stream de uma subquadra específica</div>
                         <div class="endpoint-params">
                             <strong>Parâmetros:</strong> <code>sub_quadra_id</code> (path) - ID da subquadra
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">ID da subquadra é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Subquadra não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Subquadra não está ativa ou não possui cameraId configurado</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao reiniciar stream</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -660,6 +1091,18 @@
                         <div class="endpoint-params">
                             <strong>Query:</strong> <code>token</code>
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Token é obrigatório</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Reserva não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao buscar reserva</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
@@ -667,6 +1110,18 @@
                         <div class="endpoint-description">Buscar reservas por quadra e data</div>
                         <div class="endpoint-params">
                             <strong>Query:</strong> <code>quadra_id</code>, <code>data</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">quadra_id e data são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Formato de data inválido. Use YYYY-MM-DD</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao buscar reservas</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
@@ -676,6 +1131,15 @@
                         <div class="endpoint-params">
                             <strong>Query:</strong> <code>id</code> da reserva
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Reserva não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao cancelar reserva</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
@@ -683,6 +1147,15 @@
                         <div class="endpoint-description">Cancelar reserva específica</div>
                         <div class="endpoint-params">
                             <strong>Query:</strong> <code>id</code> da reserva
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Reserva não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao cancelar reserva</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">
@@ -692,6 +1165,15 @@
                         <div class="endpoint-params">
                             <strong>Query:</strong> <code>id</code> da reserva
                         </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">404</span> - <span class="error-message">Reserva não encontrada</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro ao recusar reserva</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="endpoint">
                         <span class="method get">GET</span>
@@ -699,6 +1181,21 @@
                         <div class="endpoint-description">Buscar reservas pendentes a partir de uma data</div>
                         <div class="endpoint-params">
                             <strong>Query:</strong> <code>data_inicio</code>
+                        </div>
+                        <div class="endpoint-errors">
+                            <h4>🚨 Possíveis Erros:</h4>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">quadra_id, data e hora são obrigatórios</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Formato de data inválido. Use YYYY-MM-DD</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">400</span> - <span class="error-message">Formato de hora inválido. Use HH:MM:SS</span>
+                            </div>
+                            <div class="error-item">
+                                <span class="error-code">500</span> - <span class="error-message">Erro interno ao buscar reservas pendentes</span>
+                            </div>
                         </div>
                     </div>
                     <div class="endpoint">

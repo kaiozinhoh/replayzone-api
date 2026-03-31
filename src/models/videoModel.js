@@ -37,7 +37,7 @@ export const getVideoById = (id) => {
 export const getVideosByHourInterval = (subquadra_id, start_time, end_time) => {
   return new Promise((resolve, reject) => {
     const query = `
-      SELECT id, subquadra_id, id_quadra_videos, caminho_video, criado_em, tipo, id_camera
+      SELECT id, subquadra_id, id_quadra_videos, caminho_video, criado_em, tipo, id_camera, thumbnail
       FROM videos_subquadra
       WHERE subquadra_id = ? AND criado_em BETWEEN ? AND ?
     `;
